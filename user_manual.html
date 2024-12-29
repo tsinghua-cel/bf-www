@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Manual - BunnyFinder</title>
-    <script src="config.js"></script>
+    <title>User Manual - BunnyFunder</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -97,75 +96,118 @@
             color: #333;
         }
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const config = getConfig();
-            const sidebar = document.querySelector(".tree");
-            const content = document.querySelector(".content");
-
-            config.content.forEach(item => {
-                const listItem = document.createElement("li");
-                const link = document.createElement("a");
-                link.href = `#${item.id}`;
-                link.textContent = item.title;
-                listItem.appendChild(link);
-
-                if (item.subsections) {
-                    const sublist = document.createElement("ul");
-                    item.subsections.forEach(sub => {
-                        const subItem = document.createElement("li");
-                        const subLink = document.createElement("a");
-                        subLink.href = `#${sub.id}`;
-                        subLink.textContent = sub.title;
-                        subItem.appendChild(subLink);
-                        sublist.appendChild(subItem);
-                    });
-                    listItem.appendChild(sublist);
-                }
-
-                sidebar.appendChild(listItem);
-
-                // Add content dynamically
-                const sectionElement = document.createElement("section");
-                sectionElement.id = item.id;
-                const title = document.createElement("h1");
-                title.textContent = item.title;
-                sectionElement.appendChild(title);
-
-                if (item.description) {
-                    const paragraph = document.createElement("p");
-                    paragraph.innerHTML = item.description;
-                    sectionElement.appendChild(paragraph);
-                }
-
-                if (item.subsections) {
-                    item.subsections.forEach(sub => {
-                        const subSectionElement = document.createElement("section");
-                        subSectionElement.id = sub.id;
-                        const subTitle = document.createElement("h2");
-                        subTitle.textContent = sub.title;
-                        subSectionElement.appendChild(subTitle);
-                        if (sub.description) {
-                            const subParagraph = document.createElement("p");
-                            subParagraph.innerHTML = sub.description;
-                            subSectionElement.appendChild(subParagraph);
-                        }
-                        sectionElement.appendChild(subSectionElement);
-                    });
-                }
-
-                content.appendChild(sectionElement);
-            });
-        });
-    </script>
 </head>
 <body>
     <div class="container">
         <aside class="sidebar">
             <h2>Contents</h2>
-            <ul class="tree"></ul>
+            <ul class="tree">
+                <li>
+                    <a href="#introduction">Introduction</a>
+                </li>
+                <li>
+                    <a href="#installation">Installation</a>
+                    <ul>
+                        <li><a href="#installation-requirements">Requirements</a></li>
+                        <li><a href="#installation-steps">Steps</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#configuration">Configuration</a>
+                    <ul>
+                        <li><a href="#configuration-settings">Settings</a></li>
+                        <li><a href="#configuration-examples">Examples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#usage">Usage</a>
+                    <ul>
+                        <li><a href="#usage-basic">Basic Usage</a></li>
+                        <li><a href="#usage-advanced">Advanced Usage</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#troubleshooting">Troubleshooting</a>
+                </li>
+                <li>
+                    <a href="#faq">FAQ</a>
+                </li>
+                <li>
+                    <a href="#support">Support</a>
+                </li>
+            </ul>
         </aside>
-        <main class="content"></main>
+        <main class="content">
+            <section id="introduction">
+                <h1>Introduction</h1>
+                <p>Welcome to the BunnyFunder User Manual. This guide will help you get started with installing, configuring, and using the BunnyFunder framework.</p>
+            </section>
+            <section id="installation">
+                <h1>Installation</h1>
+                <section id="installation-requirements">
+                    <h2>Requirements</h2>
+                    <p>Ensure you have the following prerequisites before installation:</p>
+                    <ul>
+                        <li>Node.js (version 14 or higher)</li>
+                        <li>Git</li>
+                        <li>Internet connection</li>
+                    </ul>
+                </section>
+                <section id="installation-steps">
+                    <h2>Steps</h2>
+                    <p>Follow these steps to install BunnyFunder:</p>
+                    <ol>
+                        <li>Clone the repository: <code>git clone https://github.com/bunnyfunder-framework</code></li>
+                        <li>Install the dependencies: <code>npm install</code></li>
+                        <li>Run the setup script: <code>npm run setup</code></li>
+                    </ol>
+                </section>
+            </section>
+            <section id="configuration">
+                <h1>Configuration</h1>
+                <section id="configuration-settings">
+                    <h2>Settings</h2>
+                    <p>Configuration options include:</p>
+                    <ul>
+                        <li>Database connection</li>
+                        <li>API keys</li>
+                        <li>Logging levels</li>
+                    </ul>
+                </section>
+                <section id="configuration-examples">
+                    <h2>Examples</h2>
+                    <p>Example configuration files are provided in the <code>config/</code> directory.</p>
+                </section>
+            </section>
+            <section id="usage">
+                <h1>Usage</h1>
+                <section id="usage-basic">
+                    <h3>Basic Usage</h3>
+                    <p>Run the following command to start the application:</p>
+                    <code>npm start</code>
+                </section>
+                <section id="usage-advanced">
+                    <h3>Advanced Usage</h3>
+                    <p>Advanced options include:</p>
+                    <ul>
+                        <li>Custom strategy generation</li>
+                        <li>Logging verbosity control</li>
+                    </ul>
+                </section>
+            </section>
+            <section id="troubleshooting">
+                <h1>Troubleshooting</h1>
+                <p>Common issues and their solutions go here...</p>
+            </section>
+            <section id="faq">
+                <h1>FAQ</h1>
+                <p>Frequently asked questions go here...</p>
+            </section>
+            <section id="support">
+                <h1>Support</h1>
+                <p>Contact support at <a href="mailto:support@bunnyfunder.eth">support@bunnyfunder.eth</a>.</p>
+            </section>
+        </main>
     </div>
 </body>
 </html>
