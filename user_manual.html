@@ -228,9 +228,40 @@
     </tbody>
 </table>
                     <ul>
-                        <li>Database connection</li>
-                        <li>API keys</li>
-                        <li>Logging levels</li>
+                      <p>Once the startup is successful, the following outputs are expected:<p>
+                      <pre>
+                      <code>
+INFO[0000] Specified a chain config file: /root/config/config.yml prefix=genesis
+INFO[0000] No genesis time specified, defaulting to now() prefix=genesis
+INFO[0000] Delaying genesis 1732702861 by 15 seconds prefix=genesis
+INFO[0000] Genesis is now 1732702876 prefix=genesis
+INFO[0000] Setting fork geth times cancun=1732702876
+prefix=genesis shanghai=1732702876↪
+INFO[0001] Done writing genesis state to /root/config/genesis.ssz prefix=genesis
+INFO[0001] Command completed prefix=genesis
+[+] Building 0.0s (0/0)
+[+] Running 19/19
+Network bunnyfinder_meta Created
+Container ethmysql Started
+Container execute3 Started
+Container execute4 Started
+Container execute2 Started
+Container execute5 Started
+Container execute1 Started
+Container beacon-4 Started
+Container beacon-5 Started
+Container beacon-1 Started
+Container beacon-3 Started
+Container beacon-2 Started
+Container attacker-1 Started
+Container validator-4 Started
+Container validator-1 Started
+Container validator-5 Started
+Container validator-3 Started
+Container validator-2 Started
+Container strategy Started
+                      </code>
+                      </pre>
                     </ul>
                 </section>
                 <section id="configuration-examples">
