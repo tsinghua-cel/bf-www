@@ -260,13 +260,23 @@ Container validator-5 Started
 Container validator-3 Started
 Container validator-2 Started
 Container strategy Started
-                      </code>
+wait epochs</code>
+                      </pre>
+                      <pre>
+                      <code>
+$ docker exec -it ethmysql mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor. Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 9.1.0 MySQL Community Server - GPL
+mysql> use eth
+Database changed</code>
                       </pre>
                     </ul>
                 </section>
                 <section id="configuration-examples">
-                    <h2>Examples</h2>
-                    <p>Example configuration files are provided in the <code>config/</code> directory.</p>
+                    <h2>Check the Results</h2>
+                    <p>After running a strategy for at least 3 epochs (about 20 minutes), we can log in to the database to check the results. Use SQL query to check whether any vulnerabilities have been detected and identify the corresponding strategies.</p>
                 </section>
             </section>
             <section id="usage">
