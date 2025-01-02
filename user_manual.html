@@ -164,10 +164,69 @@
                 </section>
             </section>
             <section id="configuration">
-                <h1>Configuration</h1>
+                <h1>Run Existing Strategies</h1>
                 <section id="configuration-settings">
-                    <h2>Settings</h2>
-                    <p>Configuration options include:</p>
+                    <h2>Start the Test</h2>
+                  <p>Run the <code>./test.sh</code>code> script. The first parameter specifies the strategy name, and the second parameter specifies the test duration (in seconds). The strategy name can be found in the table.</p>
+                  <code>$ ./test.sh <name> <duration></code>
+                    <table>
+    <thead>
+        <tr>
+            <th>Strategy</th>
+            <th>Comment</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>all</strong></td>
+            <td>Execute all existing strategies, switch to a different existing strategy randomly every hour.</td>
+        </tr>
+        <tr>
+            <td><strong>random</strong></td>
+            <td>Randomly generate an attack strategy.</td>
+        </tr>
+        <tr>
+            <td><strong>exante</strong></td>
+            <td>Execute ex-ante attack.</td>
+        </tr>
+        <tr>
+            <td><strong>ext_exante</strong></td>
+            <td>Execute ex-ante attack with some additional random attack strategies.</td>
+        </tr>
+        <tr>
+            <td><strong>sandwich</strong></td>
+            <td>Execute sandwich attack.</td>
+        </tr>
+        <tr>
+            <td><strong>ext_sandwich</strong></td>
+            <td>Execute sandwich attack with some additional random attack strategies.</td>
+        </tr>
+        <tr>
+            <td><strong>staircase</strong></td>
+            <td>Execute staircase attack.</td>
+        </tr>
+        <tr>
+            <td><strong>ext_staircase</strong></td>
+            <td>Execute staircase attack with some additional random attack strategies.</td>
+        </tr>
+        <tr>
+            <td><strong>unrealized</strong></td>
+            <td>Execute unrealized attack.</td>
+        </tr>
+        <tr>
+            <td><strong>ext_unrealized</strong></td>
+            <td>Execute unrealized attack with some additional random attack strategies.</td>
+        </tr>
+        <tr>
+            <td><strong>withholding</strong></td>
+            <td>Execute withholding attack.</td>
+        </tr>
+        <tr>
+            <td><strong>ext_withholding</strong></td>
+            <td>Execute withholding attack with some additional random attack strategies.</td>
+        </tr>
+    </tbody>
+</table>
                     <ul>
                         <li>Database connection</li>
                         <li>API keys</li>
