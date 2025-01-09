@@ -147,152 +147,269 @@
                 <section id="installation-requirements">
                     <h2>Requirements</h2>
                     <p>Ensure you have the following prerequisites before installation:</p>
+                    <h4>Software Requirements</h4>
                     <ul>
-                        <li>Software: Ubuntu 22.04 and later and Docker 24.0.6 and later (with docker-compose plugin)</li>
-                        <li>Hardware: At least 8-core CPU and 8GB of memory</li>
-                        <li>Internet connection</li>
+                        <li>Ubuntu 22.04 and later</li>
+                        <li>Docker 24.0.6 and later</li>
+                        <li>docker-compose plugin</li>
+                        <li>kurtosis client</li>
+                    </ul>
+
+                    <h4>Hardware Requirements</h4>
+                    <ul>
+                        <li>At least 8-cores CPU and 8GB of memory</li>
                     </ul>
                 </section>
                 <section id="installation-steps">
-                    <h2>Steps</h2>
+                    <h2>Installation Steps</h2>
                     <p>Follow these steps to install BunnyFunder:</p>
                     <ol>
-                        <li>Clone the repository: <code>git clone https://github.com/singhua-cel/bf</code></li>
-                        <li>Enter the directory: <code>cd bf</code></li>
-                        <li>Build the required docker images: <code>./build.sh</code></li>
+                        <li>Clone the repository: <code>git clone https://github.com/tsinghua-cel/bunnyfinder</code></li>
+                        <li>Enter the directory: <code>cd bunnyfinder</code></li>
+                        <li>Build the docker images: <code>make docker</code></li>
                     </ol>
                 </section>
             </section>
             <section id="configuration">
-                <h1>Run Existing Strategies</h1>
                 <section id="configuration-settings">
-                    <h2>Start the Test</h2>
-                  <p>Run the <code>./test.sh</code>code> script. The first parameter specifies the strategy name, and the second parameter specifies the test duration (in seconds). The strategy name can be found in the table.</p>
-                  <code>$ ./test.sh <name> <duration></code>
-                    <table>
-    <thead>
-        <tr>
-            <th>Strategy</th>
-            <th>Comment</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><strong>all</strong></td>
-            <td>Execute all existing strategies, switch to a different existing strategy randomly every hour.</td>
-        </tr>
-        <tr>
-            <td><strong>random</strong></td>
-            <td>Randomly generate an attack strategy.</td>
-        </tr>
-        <tr>
-            <td><strong>exante</strong></td>
-            <td>Execute ex-ante attack.</td>
-        </tr>
-        <tr>
-            <td><strong>ext_exante</strong></td>
-            <td>Execute ex-ante attack with some additional random attack strategies.</td>
-        </tr>
-        <tr>
-            <td><strong>sandwich</strong></td>
-            <td>Execute sandwich attack.</td>
-        </tr>
-        <tr>
-            <td><strong>ext_sandwich</strong></td>
-            <td>Execute sandwich attack with some additional random attack strategies.</td>
-        </tr>
-        <tr>
-            <td><strong>staircase</strong></td>
-            <td>Execute staircase attack.</td>
-        </tr>
-        <tr>
-            <td><strong>ext_staircase</strong></td>
-            <td>Execute staircase attack with some additional random attack strategies.</td>
-        </tr>
-        <tr>
-            <td><strong>unrealized</strong></td>
-            <td>Execute unrealized attack.</td>
-        </tr>
-        <tr>
-            <td><strong>ext_unrealized</strong></td>
-            <td>Execute unrealized attack with some additional random attack strategies.</td>
-        </tr>
-        <tr>
-            <td><strong>withholding</strong></td>
-            <td>Execute withholding attack.</td>
-        </tr>
-        <tr>
-            <td><strong>ext_withholding</strong></td>
-            <td>Execute withholding attack with some additional random attack strategies.</td>
-        </tr>
-    </tbody>
-</table>
+                    <h2>Settings</h2>
                     <ul>
-                      <p>Once the startup is successful, the following outputs are expected:<p>
-                      <pre>
-                      <code>
-INFO[0000] Specified a chain config file: /root/config/config.yml prefix=genesis
-INFO[0000] No genesis time specified, defaulting to now() prefix=genesis
-INFO[0000] Delaying genesis 1732702861 by 15 seconds prefix=genesis
-INFO[0000] Genesis is now 1732702876 prefix=genesis
-INFO[0000] Setting fork geth times cancun=1732702876
-prefix=genesis shanghai=1732702876↪
-INFO[0001] Done writing genesis state to /root/config/genesis.ssz prefix=genesis
-INFO[0001] Command completed prefix=genesis
-[+] Building 0.0s (0/0)
-[+] Running 19/19
-Network bunnyfinder_meta Created
-Container ethmysql Started
-Container execute3 Started
-Container execute4 Started
-Container execute2 Started
-Container execute5 Started
-Container execute1 Started
-Container beacon-4 Started
-Container beacon-5 Started
-Container beacon-1 Started
-Container beacon-3 Started
-Container beacon-2 Started
-Container attacker-1 Started
-Container validator-4 Started
-Container validator-1 Started
-Container validator-5 Started
-Container validator-3 Started
-Container validator-2 Started
-Container strategy Started
-wait epochs</code>
-                      </pre>
-                      <pre>
-                      <code>
-$ docker exec -it ethmysql mysql -u root -p
-Enter password:
-Welcome to the MySQL monitor. Commands end with ; or \g.
-Your MySQL connection id is 9
-Server version: 9.1.0 MySQL Community Server - GPL
-mysql> use eth
-Database changed</code>
-                      </pre>
+                        <li><code>image</code> : The docker image to use for <code>bunnyfinder</code> service.</li>
+                        <li><code>dbconnect</code>: The database connection string, current only support mysql database, e.g. <code>root:password@tcp(ip:port)/dbname</code></li>
+                        <li><code>min_malicious_idx</code>: The min index that actor as a malicious validator.</li>
+                        <li><code>max_malicious_idx</code>: The max index that actor as a malicious validator.</li>
+                        <li><code>duration_per_strategy</code>: The execute duration for each strategy in minutes, this is used when <code>strategy</code> is set to <code>all</code> or multiple strategies.</li>
+                        <li><code>strategy</code>: The strategy to use, support <code>all</code>, <code>random</code>, <code>exante</code>, <code>ext_exante</code>, <code>sandwich</code>, <code>ext_sandwich</code>, <code>staircase</code>, <code>ext_staircase</code>, <code>unrealized</code>, <code>ext_unrealized</code>, <code>withholding</code>, <code>ext_withholding</code>.</li>
+                    </ul>
+
+                    <h4>Strategy Description</h4>
+                    <ul>
+                        <li>all: Execute all existing strategies, switch to a different existing strategy randomly every <code>duration_per_strategy</code> minutes.</li>
+                        <li>random: Randomly generate an attack strategy.</li>
+                        <li>exante: Execute ex-ante attack.</li>
+                        <li>ext_exante: Execute ex-ante attack with some additional random attack strategies.</li>
+                        <li>sandwich: Execute sandwich attack.</li>
+                        <li>ext_sandwich: Execute sandwich attack with some additional random attack strategies.</li>
+                        <li>staircase: Execute staircase attack.</li>
+                        <li>ext_staircase: Execute staircase attack with some additional random attack strategies.</li>
+                        <li>unrealized: Execute unrealized attack.</li>
+                        <li>ext_unrealized: Execute unrealized attack with some additional random attack strategies.</li>
+                        <li>withholding: Execute withholding attack.</li>
+                        <li>ext_withholding: Execute withholding attack with some additional random attack strategies.</li>
                     </ul>
                 </section>
                 <section id="configuration-examples">
-                    <h2>Check the Results</h2>
-                    <p>After running a strategy for at least 3 epochs (about 20 minutes), we can log in to the database to check the results. Use SQL query to check whether any vulnerabilities have been detected and identify the corresponding strategies.</p>
+                    <p>Bellow is an example of the configuration file, it use the <code>bunnyfinder:latest</code> docker image, connect to a local mysql database, and execute the <code>random</code> and <code>exante</code> strategies with a duration of 30 minutes for each strategy.</p>
+                    <pre><code>image: 'bunnyfinder:latest'
+strategy: 'random,exante'
+dbconnect: 'eth:12345678@tcp(127.0.0.1:3306)/eth'
+max_malicious_idx: "85"
+duration_per_strategy: "30"
+</code></pre>
                 </section>
             </section>
             <section id="usage">
                 <h1>Usage</h1>
                 <section id="usage-basic">
-                    <h3>Basic Usage</h3>
-                    <p>Run the following command to start the application:</p>
-                    <code>npm start</code>
+                    <h2>Basic Usage</h2>
+                    <p>We have integrated <code>Bunnyfinder</code> into the <code>ethereum-package</code>. You can run tests on an Ethereum PoS network with multiple client versions. Below is an example of running tests and retrieving the results.</p>
+
+                    <h4>Start the Test</h4>
+                    <p>We provide some scripts and test parameter files in the <code>guide</code> directory.</p>
+                    <p>First, you need to switch to the <code>guide</code> directory.</p>
+                    <pre><code>cd guide
+</code></pre>
+                    <p>Then, use the following command to start the test.</p>
+                    <pre><code>./run.sh testname ./testset/network_params.yaml
+</code></pre>
+                    <p>Here, we are running three sets of beacon nodes, each using a different client. The execution layer includes <code>besu</code>, <code>geth</code>, and <code>nethermind</code>, while the consensus layer includes <code>prysm</code>, <code>lighthouse</code>, and <code>teku</code>.</p>
+                    <p>When the following log appears, it indicates that the entire test has run successfully.</p>
+                    <pre><code>========================================== User Services ==========================================
+UUID           Name                                             Ports                                         Status
+90ee4bff7ac7   bunnyfinder                                      http: 19000/tcp -> http://127.0.0.1:32828     RUNNING
+0a95359926df   cl-1-prysm-besu                                  http: 3500/tcp -> http://127.0.0.1:32819      RUNNING
+                                                                metrics: 8080/tcp -> http://127.0.0.1:32816
+                                                                profiling: 6060/tcp -> 127.0.0.1:32817
+                                                                rpc: 4000/tcp -> 127.0.0.1:32818
+                                                                tcp-discovery: 13000/tcp -> 127.0.0.1:32815
+                                                                udp-discovery: 12000/udp -> 127.0.0.1:32777
+895d9bf907f9   cl-2-lighthouse-geth                             http: 4000/tcp -> http://127.0.0.1:32822      RUNNING
+                                                                metrics: 5054/tcp -> http://127.0.0.1:32821
+                                                                tcp-discovery: 9000/tcp -> 127.0.0.1:32820
+                                                                udp-discovery: 9000/udp -> 127.0.0.1:32778
+5c8e2e2c7c7d   cl-3-teku-nethermind                             http: 4000/tcp -> http://127.0.0.1:32825      RUNNING
+                                                                metrics: 8008/tcp -> http://127.0.0.1:32824
+                                                                tcp-discovery: 9000/tcp -> 127.0.0.1:32823
+                                                                udp-discovery: 9000/udp -> 127.0.0.1:32779
+af977800bf29   el-1-besu-prysm                                  engine-rpc: 8551/tcp -> 127.0.0.1:32802       RUNNING
+                                                                metrics: 9001/tcp -> http://127.0.0.1:32801
+                                                                rpc: 8545/tcp -> 127.0.0.1:32804
+                                                                tcp-discovery: 30303/tcp -> 127.0.0.1:32800
+                                                                udp-discovery: 30303/udp -> 127.0.0.1:32774
+                                                                ws: 8546/tcp -> 127.0.0.1:32803
+b861d349ff1a   el-2-geth-lighthouse                             engine-rpc: 8551/tcp -> 127.0.0.1:32807       RUNNING
+                                                                metrics: 9001/tcp -> http://127.0.0.1:32806
+                                                                rpc: 8545/tcp -> 127.0.0.1:32809
+                                                                tcp-discovery: 30303/tcp -> 127.0.0.1:32805
+                                                                udp-discovery: 30303/udp -> 127.0.0.1:32775
+                                                                ws: 8546/tcp -> 127.0.0.1:32808
+8900b3150379   el-3-nethermind-teku                             engine-rpc: 8551/tcp -> 127.0.0.1:32812       RUNNING
+                                                                metrics: 9001/tcp -> http://127.0.0.1:32811
+                                                                rpc: 8545/tcp -> 127.0.0.1:32814
+                                                                tcp-discovery: 30303/tcp -> 127.0.0.1:32810
+                                                                udp-discovery: 30303/udp -> 127.0.0.1:32776
+                                                                ws: 8546/tcp -> 127.0.0.1:32813
+5578c58fd8d8   validator-key-generation-cl-validator-keystore   <none>                                        RUNNING
+ff8b93b77564   vc-1-besu-prysm                                  metrics: 8080/tcp -> http://127.0.0.1:32826   RUNNING
+305d686276e2   vc-2-geth-lighthouse                             metrics: 8080/tcp -> http://127.0.0.1:32827   RUNNING
+</code></pre>
+
+                    <h4>Retrieve the Results</h4>
+                    <p>After running the test for at least 3 epochs (about 20 minutes), we can log in to the database to check the results.</p>
+                    <p>Use SQL query to check whether any vulnerabilities have been detected and identify the corresponding strategies.</p>
+
+                    <p>(1) Log in to the database, enter the password, and then switch to the eth database. When prompted for a password, enter “12345678”.</p>
+                    <pre><code>$ docker exec -it ethmysql mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 9.1.0 MySQL Community Server - GPL
+
+mysql> use eth
+Database changed
+</code></pre>
+
+                    <p>(2) Use the following SQL queries to check for specific vulnerabilities:</p>
+
+                    <h5>SQL1: This query checks for reorganization events</h5>
+                    <pre><code>SELECT content, reorg_count
+FROM t_strategy
+WHERE reorg_count > 0;
+</code></pre>
+                    <p>If the result is non-empty, it indicates that the current attack has triggered a reorganization, and the <code>content</code> field should be recorded as an effective attack strategy.</p>
+
+                    <h5>SQL2: This query checks for increased "honest validator's reward loss"</h5>
+                    <pre><code>SELECT content, honest_lose_rate_avg
+FROM t_strategy
+WHERE honest_lose_rate_avg > 0;
+</code></pre>
+                    <p>If the result is non-empty, it indicates that the current attack has caused an increase in the honest reward loss rate. Again, the <code>content</code> field should be recorded as an effective attack strategy.</p>
+
+                    <h5>SQL3: This query compares the honest and attacker loss rates</h5>
+                    <pre><code>SELECT content, honest_lose_rate_avg, attacker_lose_rate_avg
+FROM t_strategy
+WHERE honest_lose_rate_avg > attacker_lose_rate_avg;
+</code></pre>
+                    <p>If the result is non-empty, it suggests that the honest reward loss rate is higher than the attacker's loss rate, and the <code>content</code> field should be recorded as an effective attack strategy.</p>
+
+                    <p>If <em>SQL1</em>, <em>SQL2</em>, and <em>SQL3</em> all return empty results, it means that none of the strategies in the current attack are effective. Otherwise, it indicates that the attack is successful with some effective strategies.</p>
+
+                    <h4>Stop the Test</h4>
+                    <p>To stop the test, run the following command:</p>
+                    <pre><code>./stop.sh testname
+</code></pre>
+                    <p>Due to the limitations of Kurtosis, the test cannot be restarted once it has stopped.</p>
+
                 </section>
                 <section id="usage-advanced">
                     <h3>Advanced Usage</h3>
-                    <p>Advanced options include:</p>
+                    <p>This section will introduce how to add new attack strategy in <code>Bunnyfinder</code> and define the test network.</p>
+
+                    <h3>Create Custom Strategies</h3>
+                    <p>To define a custom attack strategy, follow these steps:</p>
+
+                    <h4>Change the Directory</h4>
+                    <p>Move to the <code>bunnyfinder/library</code> directory:</p>
+                    <pre><code>$ cd bunnyfinder/library
+</code></pre>
+
+                    <h4>Create a New Strategy</h4>
+                    <p>Use an existing strategy as a template. For example, duplicate the <code>withholding</code> strategy and rename it:</p>
+                    <pre><code>$ cp -r library/withholding library/mystrategy
+$ mv library/mystrategy/withholding.go library/mystrategy/mystrategy.go
+</code></pre>
+
+                    <h4>Modify the Strategy</h4>
+                    <p>Make the following updates in the <code>library/mystrategy</code> directory:</p>
                     <ul>
-                        <li>Custom strategy generation</li>
-                        <li>Logging verbosity control</li>
+                        <li>Update package declarations: change the first line in <code>mystrategy.go</code>, <code>check.go</code>, and <code>block.go</code> files from "package withholding" to "package mystrategy".</li>
+                        <li>Modify the Name method: alter the Name method return value to "mystrategy" in <code>mystrategy.go</code>.</li>
+                        <li>Adjust the Description method: update the Description method to reflect the characteristics of the new strategy.</li>
+                        <li>Register new strategy: open the <code>library/library.go</code> file, find the <code>Init</code> function, and add code <code>register(&mystrategy.Instance{})</code>.</li>
                     </ul>
+
+                    <h4>Define Trigger Conditions</h4>
+                    <p>The file <code>check.go</code> in <code>library/mystrategy</code> directory is used to define the trigger conditions for the strategy.</p>
+                    <p>It defines a <code>CheckDuties</code> method, which is used to proactively determine whether to issue attack strategies based on the propose duties for each slot in the next epoch.</p>
+                    <p>Then, customize the <code>CheckDuties</code> function to define the trigger conditions. An example is shown as follows.</p>
+                    <pre><code>func CheckDuties(param types.LibraryParams, duties []types.ProposerDuty) ([]interface{}, bool) {
+    result := make([]interface{}, 0)
+    tmpsub := make([]types.ProposerDuty, 0)
+
+    for _, duty := range duties {
+        valIdx, _ := strconv.Atoi(duty.ValidatorIndex)
+
+        if types.IsHackValidator(valIdx, param) {
+            tmpsub = append(tmpsub, duty)
+        } else {
+            if len(tmpsub) >= 3 {
+                result = append(result, tmpsub)
+            }
+            tmpsub = make([]types.ProposerDuty, 0)
+        }
+    }
+
+    if len(tmpsub) >= 3 {
+        result = append(result, tmpsub)
+    }
+
+    if len(result) >= 2 {
+        return result, true
+    }
+    return nil, false
+}
+</code></pre>
+
+                    <h4>Define Attack Actions</h4>
+                    <p>The file <code>block.go</code> in <code>library/mystrategy</code> directory is used to define detail strategies.</p>
+                    <p>Fill the <code>GenSlotStrategy</code> method using the customized strategies. Below is an updated example:</p>
+                    <pre><code>func GenSlotStrategy(allHacks []interface{}) []types.SlotStrategy {
+    slotsPerEpoch := globalinfo.ChainBaseInfo().SlotsPerEpoch
+    secondsPerSlot := globalinfo.ChainBaseInfo().SecondsPerSlot
+    strategys := make([]types.SlotStrategy, 0)
+
+    for _, hack := range allHacks {
+        subduties := hack.([]types.ProposerDuty)
+        endSlot, _ := strconv.Atoi(subduties[len(subduties)-1].Slot)
+
+        for i := 0; i < len(subduties); i++ {
+            slot, _ := strconv.Atoi(subduties[i].Slot)
+            strategy := types.SlotStrategy{
+                Slot:    subduties[i].Slot,
+                Level:   1,
+                Actions: make(map[string]string),
+            }
+
+            delaySlots := endSlot - slot + slotsPerEpoch/2
+            strategy.Actions["BlockBeforeBroadCast"] = fmt.Sprintf("delayWithDuration:%d", delaySlots*secondsPerSlot)
+            strategy.Actions["AttestBeforeBroadCast"] = fmt.Sprintf("delayWithDuration:%d", delaySlots*secondsPerSlot)
+
+            strategys = append(strategys, strategy)
+        }
+    }
+    return strategys
+}
+</code></pre>
+
+                    <h4>Compile and Test</h4>
+                    <p>Build the code and generate updated docker images:</p>
+                    <pre><code>make docker
+</code></pre>
+                    <p>And then, you can refer to the <code>Basic Usage</code> section to run the test network with the new strategy.</p>
+
+                    <h3>Custom Test Network</h3>
+                    <p>To be continue.</p>
+
                 </section>
             </section>
             <section id="troubleshooting">
