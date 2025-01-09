@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Manual - BunnyFunder</title>
+    <title>User Manual - BunnyFinder</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -140,7 +140,7 @@
         <main class="content">
             <section id="introduction">
                 <h1>Introduction</h1>
-                <p>Welcome to the BunnyFunder User Manual. This guide will help you get started with installing, configuring, and using the BunnyFunder framework.</p>
+                <p>Welcome to the BunnyFinder User Manual. This guide will help you get started with installing, configuring, and using the BunnyFinder framework.</p>
             </section>
             <section id="installation">
                 <h1>Installation</h1>
@@ -162,10 +162,10 @@
                 </section>
                 <section id="installation-steps">
                     <h2>Installation Steps</h2>
-                    <p>Follow these steps to install BunnyFunder:</p>
+                    <p>Follow these steps to install BunnyFinder:</p>
                     <ol>
-                        <li>Clone the repository: <code>git clone https://github.com/tsinghua-cel/bunnyfinder</code></li>
-                        <li>Enter the directory: <code>cd bunnyfinder</code></li>
+                        <li>Clone the repository: <code>git clone https://github.com/tsinghua-cel/attacker-service</code></li>
+                        <li>Enter the directory: <code>cd attacker-service</code></li>
                         <li>Build the docker images: <code>make docker</code></li>
                     </ol>
                 </section>
@@ -174,7 +174,7 @@
                 <section id="configuration-settings">
                     <h2>Settings</h2>
                     <ul>
-                        <li><code>image</code> : The docker image to use for <code>bunnyfinder</code> service.</li>
+                        <li><code>image</code> : The docker image to use for <code>Bunnyfinder</code> service.</li>
                         <li><code>dbconnect</code>: The database connection string, current only support mysql database, e.g. <code>root:password@tcp(ip:port)/dbname</code></li>
                         <li><code>min_malicious_idx</code>: The min index that actor as a malicious validator.</li>
                         <li><code>max_malicious_idx</code>: The max index that actor as a malicious validator.</li>
@@ -184,18 +184,18 @@
 
                     <h4>Strategy Description</h4>
                     <ul>
-                        <li>all: Execute all existing strategies, switch to a different existing strategy randomly every <code>duration_per_strategy</code> minutes.</li>
-                        <li>random: Randomly generate an attack strategy.</li>
-                        <li>exante: Execute ex-ante attack.</li>
-                        <li>ext_exante: Execute ex-ante attack with some additional random attack strategies.</li>
-                        <li>sandwich: Execute sandwich attack.</li>
-                        <li>ext_sandwich: Execute sandwich attack with some additional random attack strategies.</li>
-                        <li>staircase: Execute staircase attack.</li>
-                        <li>ext_staircase: Execute staircase attack with some additional random attack strategies.</li>
-                        <li>unrealized: Execute unrealized attack.</li>
-                        <li>ext_unrealized: Execute unrealized attack with some additional random attack strategies.</li>
-                        <li>withholding: Execute withholding attack.</li>
-                        <li>ext_withholding: Execute withholding attack with some additional random attack strategies.</li>
+                        <li><code>all</code>: Execute all existing strategies, switch to a different existing strategy randomly every <code>duration_per_strategy</code> minutes.</li>
+                        <li><code>random</code>: Randomly generate an attack strategy.</li>
+                        <li><code>exante</code>: Execute ex-ante attack.</li>
+                        <li><code>ext_exante</code>: Execute ex-ante attack with some additional random attack strategies.</li>
+                        <li><code>sandwich</code>: Execute sandwich attack.</li>
+                        <li><code>ext_sandwich</code>: Execute sandwich attack with some additional random attack strategies.</li>
+                        <li><code>staircase</code>: Execute staircase attack.</li>
+                        <li><code>ext_staircase</code>: Execute staircase attack with some additional random attack strategies.</li>
+                        <li><code>unrealized</code>: Execute unrealized attack.</li>
+                        <li><code>ext_unrealized</code>: Execute unrealized attack with some additional random attack strategies.</li>
+                        <li><code>withholding</code>: Execute withholding attack.</li>
+                        <li><code>ext_withholding</code>: Execute withholding attack with some additional random attack strategies.</li>
                     </ul>
                 </section>
                 <section id="configuration-examples">
@@ -204,8 +204,7 @@
 strategy: 'random,exante'
 dbconnect: 'eth:12345678@tcp(127.0.0.1:3306)/eth'
 max_malicious_idx: "85"
-duration_per_strategy: "30"
-</code></pre>
+duration_per_strategy: "30"</code></pre>
                 </section>
             </section>
             <section id="usage">
@@ -422,7 +421,7 @@ $ mv library/mystrategy/withholding.go library/mystrategy/mystrategy.go
             </section>
             <section id="support">
                 <h1>Support</h1>
-                <p>Contact support at <a href="mailto:support@bunnyfunder.eth">support@bunnyfunder.eth</a>.</p>
+                <p>Contact support at <a href="mailto:support@bunnyfinder.eth">support@bunnyfinder.eth</a>.</p>
             </section>
         </main>
     </div>
